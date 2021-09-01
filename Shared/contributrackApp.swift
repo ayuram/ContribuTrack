@@ -11,7 +11,12 @@ import SwiftUI
 struct contributrackApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem {
+                        Label("Menu", systemImage: "list.dash")
+                    }
+            }
         }
     }
 }
