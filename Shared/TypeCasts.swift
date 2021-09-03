@@ -24,3 +24,18 @@ extension ArraySlice {
         Array(self)
     }
 }
+
+extension Dictionary.Keys {
+    func toArray() -> [Element] {
+        Array(self)
+    }
+}
+
+extension Dictionary {
+    func getKeys() -> [Key] {
+        Array(self.keys)
+    }
+    func getValues() -> [Value] {
+        Array(self.values)
+    }
+}

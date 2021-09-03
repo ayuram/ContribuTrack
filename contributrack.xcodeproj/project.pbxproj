@@ -23,6 +23,10 @@
 		C96D6E6D26E197C000A35D7F /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6B26E197C000A35D7F /* Statistics.swift */; };
 		C96D6E6F26E198B100A35D7F /* TypeCasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6E26E198B100A35D7F /* TypeCasts.swift */; };
 		C96D6E7026E198B100A35D7F /* TypeCasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6E26E198B100A35D7F /* TypeCasts.swift */; };
+		C96D6E7926E1A0C400A35D7F /* UserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E7826E1A0C400A35D7F /* UserTab.swift */; };
+		C96D6E7A26E1A0C400A35D7F /* UserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E7826E1A0C400A35D7F /* UserTab.swift */; };
+		C96D6E7C26E1ACE800A35D7F /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E7B26E1ACE800A35D7F /* UserView.swift */; };
+		C96D6E7D26E1ACE800A35D7F /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E7B26E1ACE800A35D7F /* UserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +68,8 @@
 		C96D6E6826DF245300A35D7F /* backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = backend.swift; sourceTree = "<group>"; };
 		C96D6E6B26E197C000A35D7F /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		C96D6E6E26E198B100A35D7F /* TypeCasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCasts.swift; sourceTree = "<group>"; };
+		C96D6E7826E1A0C400A35D7F /* UserTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTab.swift; sourceTree = "<group>"; };
+		C96D6E7B26E1ACE800A35D7F /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		E968669C2937B4C9DB2C70DB /* Pods-contributrack (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-contributrack (iOS).debug.xcconfig"; path = "Target Support Files/Pods-contributrack (iOS)/Pods-contributrack (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 		FC5AC6C3AEFF011529AED64A /* Pods-contributrack (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-contributrack (macOS).debug.xcconfig"; path = "Target Support Files/Pods-contributrack (macOS)/Pods-contributrack (macOS).debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,12 +136,14 @@
 		C96D6E2726DF1E0500A35D7F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C96D6E7126E1A04700A35D7F /* ViewComponents */,
 				C96D6E2826DF1E0500A35D7F /* contributrackApp.swift */,
 				C96D6E2926DF1E0500A35D7F /* ContentView.swift */,
 				C96D6E2A26DF1E0700A35D7F /* Assets.xcassets */,
 				C96D6E6826DF245300A35D7F /* backend.swift */,
 				C96D6E6B26E197C000A35D7F /* Statistics.swift */,
 				C96D6E6E26E198B100A35D7F /* TypeCasts.swift */,
+				C96D6E7B26E1ACE800A35D7F /* UserView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -184,6 +192,14 @@
 				C96D6E5026DF1E0700A35D7F /* Info.plist */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		C96D6E7126E1A04700A35D7F /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				C96D6E7826E1A0C400A35D7F /* UserTab.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 		F8A832783BBD9A8D7EC5BA5F /* Frameworks */ = {
@@ -423,7 +439,9 @@
 				C96D6E5326DF1E0700A35D7F /* ContentView.swift in Sources */,
 				C96D6E6926DF245300A35D7F /* backend.swift in Sources */,
 				C96D6E6C26E197C000A35D7F /* Statistics.swift in Sources */,
+				C96D6E7926E1A0C400A35D7F /* UserTab.swift in Sources */,
 				C96D6E5126DF1E0700A35D7F /* contributrackApp.swift in Sources */,
+				C96D6E7C26E1ACE800A35D7F /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,7 +453,9 @@
 				C96D6E5426DF1E0700A35D7F /* ContentView.swift in Sources */,
 				C96D6E6A26DF245300A35D7F /* backend.swift in Sources */,
 				C96D6E6D26E197C000A35D7F /* Statistics.swift in Sources */,
+				C96D6E7A26E1A0C400A35D7F /* UserTab.swift in Sources */,
 				C96D6E5226DF1E0700A35D7F /* contributrackApp.swift in Sources */,
+				C96D6E7D26E1ACE800A35D7F /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,13 @@ struct Unit {
     let prefixed: Bool
     var increment: Double
     var decrement: Double
+    func getString(num: Int) -> String {
+        if (prefixed) {
+            return notation + " \(num)"
+        } else {
+            return "\(num) \(notation)"
+        }
+    }
 }
 
 enum UserType {
@@ -38,16 +45,16 @@ struct User : Hashable {
         self.uid = UUID().uuidString
         self.pfp = .none
         self.name = ""
-        self.type = UserType.member
+        self.type = .member
     }
 }
 
 
 
-class Workspace {
-    private var name: String
+class Workspace : ObservableObject {
+    var name: String
     private var unit: Unit
-    private var users = [User:Double]()
+    var users = [User:Double]()
     init(withUnits unit: Unit, withUsers users: [User]? = .none, name: String) {
         self.unit = unit
         self.name = name
@@ -63,6 +70,9 @@ class Workspace {
     }
     func getTopUser() -> User? {
         users.max { maxUser, currUser in currUser.value < maxUser.value }?.key
+    }
+    func getUsers() -> [User] {
+        users.getKeys()
     }
     func getStatistic(fun operation: ([Double]) -> Double?) -> Double? {
         operation(users.values.sorted())
