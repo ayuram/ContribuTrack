@@ -19,6 +19,10 @@
 		C96D6E5626DF1E0700A35D7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C96D6E2A26DF1E0700A35D7F /* Assets.xcassets */; };
 		C96D6E6926DF245300A35D7F /* backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6826DF245300A35D7F /* backend.swift */; };
 		C96D6E6A26DF245300A35D7F /* backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6826DF245300A35D7F /* backend.swift */; };
+		C96D6E6C26E197C000A35D7F /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6B26E197C000A35D7F /* Statistics.swift */; };
+		C96D6E6D26E197C000A35D7F /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6B26E197C000A35D7F /* Statistics.swift */; };
+		C96D6E6F26E198B100A35D7F /* TypeCasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6E26E198B100A35D7F /* TypeCasts.swift */; };
+		C96D6E7026E198B100A35D7F /* TypeCasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D6E6E26E198B100A35D7F /* TypeCasts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,8 @@
 		C96D6E4E26DF1E0700A35D7F /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		C96D6E5026DF1E0700A35D7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C96D6E6826DF245300A35D7F /* backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = backend.swift; sourceTree = "<group>"; };
+		C96D6E6B26E197C000A35D7F /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		C96D6E6E26E198B100A35D7F /* TypeCasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCasts.swift; sourceTree = "<group>"; };
 		E968669C2937B4C9DB2C70DB /* Pods-contributrack (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-contributrack (iOS).debug.xcconfig"; path = "Target Support Files/Pods-contributrack (iOS)/Pods-contributrack (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 		FC5AC6C3AEFF011529AED64A /* Pods-contributrack (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-contributrack (macOS).debug.xcconfig"; path = "Target Support Files/Pods-contributrack (macOS)/Pods-contributrack (macOS).debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +134,8 @@
 				C96D6E2926DF1E0500A35D7F /* ContentView.swift */,
 				C96D6E2A26DF1E0700A35D7F /* Assets.xcassets */,
 				C96D6E6826DF245300A35D7F /* backend.swift */,
+				C96D6E6B26E197C000A35D7F /* Statistics.swift */,
+				C96D6E6E26E198B100A35D7F /* TypeCasts.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -411,8 +419,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96D6E6F26E198B100A35D7F /* TypeCasts.swift in Sources */,
 				C96D6E5326DF1E0700A35D7F /* ContentView.swift in Sources */,
 				C96D6E6926DF245300A35D7F /* backend.swift in Sources */,
+				C96D6E6C26E197C000A35D7F /* Statistics.swift in Sources */,
 				C96D6E5126DF1E0700A35D7F /* contributrackApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,8 +431,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96D6E7026E198B100A35D7F /* TypeCasts.swift in Sources */,
 				C96D6E5426DF1E0700A35D7F /* ContentView.swift in Sources */,
 				C96D6E6A26DF245300A35D7F /* backend.swift in Sources */,
+				C96D6E6D26E197C000A35D7F /* Statistics.swift in Sources */,
 				C96D6E5226DF1E0700A35D7F /* contributrackApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
