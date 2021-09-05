@@ -6,12 +6,31 @@
 //
 
 import SwiftUI
+import UIKit
+import Firebase
+
+let systemUser: User? = .none
 
 @main
 struct contributrackApp: App {
+    init() {
+        FirebaseApp.configure()
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
+        }
+    }
     var body: some Scene {
         WindowGroup {
-            TabView {
+            AuthWrapper()
+        }
+    }
+}
+
+struct AuthWrapper: View {
+    var body: some View {
+        switch systemUser {
+            case .none: LoginView()
+            default: TabView {
                 ContentView()
                     .tabItem {
                         Label("Menu", systemImage: "list.dash")

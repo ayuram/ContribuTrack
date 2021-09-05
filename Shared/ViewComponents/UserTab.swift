@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct UserTab: View {
-    let user: User
-    init(_ user: User) {
+    let user: Person
+    init(_ user: Person) {
         self.user = user
     }
     var body: some View {
@@ -34,7 +34,7 @@ struct UserTab: View {
 }
 
 struct UserTab_Previews: PreviewProvider {
-    static let user = User(name: "Bob", type: .member)
+    static let user = Person(name: "Bob", type: .member)
     static var previews: some View {
         UserTab(user)
     }

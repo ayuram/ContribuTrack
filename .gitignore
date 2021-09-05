@@ -1,2 +1,4 @@
 #Ignore Pods
 Pods/
+#Ignore api keys
+iOS/GoogleService-Info.plist
