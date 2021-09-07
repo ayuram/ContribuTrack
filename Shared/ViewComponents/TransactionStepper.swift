@@ -7,27 +7,6 @@
 
 import SwiftUI
 import FirebaseDatabase
-import Combine
-
-class RTDBListener: Subscriber {
-    typealias Input = Int
-    
-    typealias Failure = Never
-    
-    func receive(subscription: Subscription) {
-        print("Received subscription")
-        subscription.request(.max(1))
-      }
-
-      func receive(_ input: Input) -> Subscribers.Demand {
-        print("Received input: \(input)")
-        return .none
-      }
-
-      func receive(completion: Subscribers.Completion<Never>) {
-        print("Received completion: \(completion)")
-      }
-}
 
 struct TransactionStepper: View {
     let ref: DatabaseReference
@@ -55,8 +34,8 @@ struct TransactionStepper: View {
             onIncrement: incrementStep,
             onDecrement: decrementStep,
             label: {
-                Text(unit.getString(num: value.toInt()))
-            }).background(Color("Accent"))
+                Text(value.toInt().notation(withUnits: unit))
+            })
     }
 }
 

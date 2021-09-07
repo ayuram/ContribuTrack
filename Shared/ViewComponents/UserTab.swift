@@ -9,18 +9,25 @@ import SwiftUI
 
 struct UserTab: View {
     let user: Person
+    @EnvironmentObject var workspace: Workspace
     init(_ user: Person) {
         self.user = user
     }
     var body: some View {
-        HStack {
-            Image(systemName: "person")
-                .padding()
-            Text(user.name)
-            Spacer()
-            getLabel()
-                .accentColor(.red)
-                .padding()
+        NavigationLink(destination: MemberView(member: user)
+                        .environmentObject(workspace)) {
+            HStack {
+                if (user.type == .leader) {
+                    Image(systemName: "crown.fill")
+                }
+                Image(systemName: "person")
+                    .padding()
+                Text(user.name)
+                Spacer()
+                getLabel()
+                    .accentColor(.red)
+                    .padding()
+            }
         }
     }
     func getLabel() -> Image {
@@ -34,8 +41,9 @@ struct UserTab: View {
 }
 
 struct UserTab_Previews: PreviewProvider {
-    static let user = Person(name: "Bob", type: .member)
+    static let user = Person(name: "Bob", type: .leader)
     static var previews: some View {
         UserTab(user)
+            .environmentObject(Workspace.def)
     }
 }

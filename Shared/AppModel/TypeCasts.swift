@@ -13,11 +13,17 @@ extension Int {
     func toDouble() -> Double {
         Double(self)
     }
+    func notation(withUnits unit: Unit) -> String {
+        unit.getString(num: self)
+    }
 }
 
 extension Double {
     func toInt() -> Int {
         Int(self)
+    }
+    func notation(withUnits unit: Unit) -> String {
+        unit.getString(num: self.toInt())
     }
 }
 
@@ -40,6 +46,40 @@ extension Dictionary {
     func getValues() -> [Value] {
         Array(self.values)
     }
+}
+
+extension Array where Element == Person {
+    func getStatistic(_ operation: ([Double]) -> Double?) -> Double? {
+        operation(self.map { $0.contribution.toDouble() })
+    }
+}
+
+extension Categories {
+//    func toJSON() -> [String:[String:Any]] {
+//        let json = [String:[String:Any]]()
+//        self.forEach { key, users in
+//            users.forEach { user in
+//                json[key][user.id][]
+//            }
+//        }
+//    }
+}
+
+extension Workspace {
+    public static let def = Workspace(withUnits: Unit.income, withUsers: [
+        "Software" : [
+        Person(name: "Bob", type: .member),
+        Person(name: "Ayush", type: .leader),
+        Person(name: "James", type: .member),
+        Person(name: "Carl", type: .member)
+            ],
+        "Hardware" : [
+        Person(name: "Joseph", type: .member),
+        Person(name: "Allen", type: .leader),
+        Person(name: "Gavin", type: .member),
+        Person(name: "Emily", type: .member)
+            ]
+    ], name: "Workspace")
 }
 
 extension Unit {

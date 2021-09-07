@@ -9,14 +9,14 @@ import SwiftUI
 import UIKit
 import Firebase
 
-let systemUser: User? = .none
+var systemUser: User? = .none
 
 @main
 struct contributrackApp: App {
     init() {
         FirebaseApp.configure()
-        Auth.auth().addStateDidChangeListener { auth, user in
-            
+        Auth.auth().addStateDidChangeListener { _, user in
+            systemUser = user
         }
     }
     var body: some Scene {
@@ -29,7 +29,12 @@ struct contributrackApp: App {
 struct AuthWrapper: View {
     var body: some View {
         switch systemUser {
-            case .none: LoginView()
+            case .none: TabView {
+                ContentView()
+                    .tabItem {
+                        Label("Menu", systemImage: "list.dash")
+                    }
+            }
             default: TabView {
                 ContentView()
                     .tabItem {
