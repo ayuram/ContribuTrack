@@ -9,28 +9,27 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
-    let workspace = Workspace.def
+    @ObservedObject var workspaceRepository: WorkspaceRepositoryViewModel
     var body: some View {
         NavigationView {
             List {
-                ForEach(workspace.getSections(), id: \.self) { section in
-                    Section(header: Text(section)){
-                        ForEach(workspace.categories[section] ?? []) {
-                            UserTab($0)
-                                .environmentObject(workspace)
-                        }
-                    }
+                NavigationLink(
+                    destination: WorkspaceView().environmentObject(Workspace.def),
+                    label: {
+                        /*@START_MENU_TOKEN@*/Text("Navigate")/*@END_MENU_TOKEN@*/
+                    })
+                ForEach(workspaceRepository.workspaces) { workspace in
+                    WorkspaceTab(workspace: workspace)
                 }
             }
-            .listStyle(SidebarListStyle())
-            .navigationTitle(Text(workspace.name))
+            .navigationBarTitle("Workspaces")
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(workspaceRepository: WorkspaceRepositoryViewModel())
             .preferredColorScheme(.dark)
     }
 }

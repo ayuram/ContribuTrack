@@ -29,18 +29,9 @@ struct contributrackApp: App {
 struct AuthWrapper: View {
     var body: some View {
         switch systemUser {
-            case .none: TabView {
-                ContentView()
-                    .tabItem {
-                        Label("Menu", systemImage: "list.dash")
-                    }
-            }
-            default: TabView {
-                ContentView()
-                    .tabItem {
-                        Label("Menu", systemImage: "list.dash")
-                    }
-            }
+            case .none:
+                ContentView(workspaceRepository: WorkspaceRepositoryViewModel())
+            default: ContentView(workspaceRepository: WorkspaceRepositoryViewModel())
         }
     }
 }

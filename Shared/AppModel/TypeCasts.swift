@@ -8,6 +8,16 @@
 import Foundation
 import FirebaseDatabase
 import Firebase
+import SwiftUI
+
+extension View {
+    func bottomPad(_ val: CGFloat? = .none) -> some View {
+        padding(.bottom, val)
+    }
+    func topPad(_ val: CGFloat? = .none) -> some View {
+        padding(.top, val)
+    }
+}
 
 extension Int {
     func toDouble() -> Double {
@@ -54,32 +64,23 @@ extension Array where Element == Person {
     }
 }
 
-extension Categories {
-//    func toJSON() -> [String:[String:Any]] {
-//        let json = [String:[String:Any]]()
-//        self.forEach { key, users in
-//            users.forEach { user in
-//                json[key][user.id][]
-//            }
-//        }
-//    }
-}
-
 extension Workspace {
+    #if DEBUG
     public static let def = Workspace(withUnits: Unit.income, withUsers: [
-        "Software" : [
-        Person(name: "Bob", type: .member),
-        Person(name: "Ayush", type: .leader),
-        Person(name: "James", type: .member),
-        Person(name: "Carl", type: .member)
-            ],
-        "Hardware" : [
-        Person(name: "Joseph", type: .member),
-        Person(name: "Allen", type: .leader),
-        Person(name: "Gavin", type: .member),
-        Person(name: "Emily", type: .member)
-            ]
+        Category(id: UUID().uuidString, name: "Software", members: [
+            Person(name: "Bob", type: .member),
+            Person(name: "Ayush", type: .leader),
+            Person(name: "James", type: .member),
+            Person(name: "Carl", type: .member)
+        ]),
+        Category(id: UUID().uuidString, name: "Hardware", members: [
+            Person(name: "Joseph", type: .member),
+            Person(name: "Allen", type: .leader),
+            Person(name: "Gavin", type: .member),
+            Person(name: "Emily", type: .member)
+        ])
     ], name: "Workspace")
+    #endif
 }
 
 extension Unit {

@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ThemedButton: View {
-    var text: String = "Button"
-    var buttonColor: Color = Color.green
-    var textColor: Color = Color.white
+    var text: String
+    var buttonColor: Color
+    var textColor: Color
     var action: () -> Void
-    public init(_ titleKey: String, action: @escaping () -> Void) {
+    public init(_ titleKey: String, buttonColor: Color = .green, textColor: Color = .white, action: @escaping () -> Void) {
+        self.buttonColor = buttonColor
+        self.textColor = textColor
         self.action = action
         self.text = titleKey
     }

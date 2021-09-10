@@ -6,13 +6,15 @@
 //
 import Firebase
 import FirebaseDatabase
+import Combine
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct Unit : Codable {
-    let notation: String
-    let name: String
-    let prefixed: Bool
+    var notation: String
+    var name: String
+    var prefixed: Bool
     var increment: Int
     var decrement: Int
     func getString(num: Int) -> String {
@@ -35,7 +37,7 @@ struct Person : Hashable, Identifiable, Codable, Comparable {
     static func == (lhs: Person, rhs: Person) -> Bool {
         lhs.contribution == rhs.contribution
     }
-    let id: String
+    @DocumentID var id: String?
     let pfp: String?
     var name: String
     var type: UserType
@@ -54,60 +56,134 @@ struct Person : Hashable, Identifiable, Codable, Comparable {
     }
 }
 
+class Category : Codable, Identifiable {
+    @DocumentID var id: String?
+    var name: String
+    var members: [Person]
+    init (id: String?, name: String, members: [Person]) {
+        self.id = id
+        self.name = name
+        self.members = members
+    }
+}
+
 let rtdb = Database.database().reference()
 let firestore = Firestore.firestore()
 
-typealias Categories = [String : [Person]]
 
-class Workspace : ObservableObject, Identifiable, Codable {
-    let id: String
+class Workspace : ObservableObject, Codable, Identifiable {
+    @DocumentID var id: String?
     var name: String
     var unit: Unit
-    var categories = Categories()
-    init(withUnits unit: Unit, withUsers users: Categories? = .none, name: String) {
+    var categories = [Category]()
+    init(withUnits unit: Unit, withUsers users: [Category] = [], name: String) {
         self.unit = unit
         self.name = name
-        self.categories = users ?? [:]
+        self.categories = users
         id = UUID().uuidString
     }
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case unit
-        case categories
-    }
-    required init(from decoder: Decoder) throws{
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(String.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        unit = try container.decode(Unit.self, forKey: .unit)
-        categories = try container.decode(Categories.self, forKey: .categories)
-    }
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(name, forKey: .name)
-        try container.encode(unit, forKey: .unit)
-        try container.encode(categories, forKey: .categories)
-    }
-    func toJSON() -> Data? {
-        try? JSONEncoder().encode(self)
-    }
-    func addUser(user: Person, category: String) {
+    func addUser(user: Person, category: Category) {
         guard user.type == .member else {
             return
         }
-        categories[category]?.append(user)
+        categories.first(where: { $0.id == category.id })?.members.append(user)
     }
     func getUsers() -> [Person] {
         categories
-            .flatMap { $0.value.compactMap { $0 } }
+            .flatMap { $0.members.compactMap { $0 } }
     }
     func getTopUser() -> Person? {
         getUsers()
             .max(by: <)
     }
     func getSections() -> [String] {
-        categories.getKeys().sorted()
+        categories
+            .map { $0.name }
+            .sorted()
+    }
+}
+
+class WorkspaceRepository : ObservableObject {
+    @Published var workspaces: [Workspace] = []
+    init() {
+        // get(completionHandler)
+    }
+    func get(_ completionHandler: @escaping ([String]?) -> Void) {
+        var keys: [String] = []
+        firestore
+            .collection("users")
+            .document("\(String(describing: systemUser?.uid))")
+            .getDocument(source: .default) { document, error in
+                if let document = document {
+                    keys = document.data()?["workspaces"] as! [String]
+                } else {
+                    print("Document does not exist in cache")
+                }
+                DispatchQueue.main.async {
+                    if keys.isEmpty {
+                        completionHandler(.none)
+                    } else {
+                        completionHandler(keys)
+                    }
+                }
+                
+            }
+        
+        
+
+    }
+    func completionHandler(_ keys: [String]?) {
+        workspaces = []
+        keys?.forEach { key in
+            firestore
+                .collection("workspaces")
+                .document(key)
+                .getDocument(source: .default) { document, error in
+                    if let document = document {
+                        if let workspace = try? document.data(as: Workspace.self){
+                            self.workspaces.append(workspace)
+                        }
+                    } else {
+                        print("Document does not exist")
+                    }
+                }
+        }
+    }
+    func add(_ workspace: Workspace) {
+        let ref = firestore
+            .collection("users")
+            .document("\(String(describing: systemUser?.uid))")
+        firestore.runTransaction({ (transaction, errorPointer) -> Any? in
+            let document: DocumentSnapshot
+                do {
+                    try document = transaction.getDocument(ref)
+                } catch let fetchError as NSError {
+                    errorPointer?.pointee = fetchError
+                    return .none
+                }
+            guard var workspaces = document.data()?["workspaces"] as? [String] else {
+                let error = NSError(
+                    domain: "AppErrorDomain",
+                    code: -1,
+                    userInfo: [
+                        NSLocalizedDescriptionKey: "Unable to retrieve workspaces from snapshot \(document)"
+                    ]
+                )
+                errorPointer?.pointee = error
+                return .none
+            }
+            if let id = workspace.id {
+                workspaces.append(id)
+            }
+            
+            transaction.updateData(["workspaces" : workspaces], forDocument: ref)
+            return .none
+        }, completion: { (_, error) in
+            if let error = error {
+                print("Transaction failed: \(error)")
+            } else {
+                print("Transaction successfully committed!")
+            }
+        })
     }
 }
